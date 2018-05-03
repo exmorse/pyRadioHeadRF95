@@ -1,6 +1,7 @@
 pyRadioHeadRF95
 ===============
 **pyRadioHeadRF95** is a Python wrapper for the use of *RH_RF95* class of the *RadioHead* library on a Raspberry Pi.
+
 The library is developed and tested using a Dragino LoRa shield.
 
 Requirements:
@@ -24,13 +25,13 @@ Writing programs using pyRadioHeadRF95
 - Import the module: ```import pyRadioHeadRF95 as Radio```
 * If the program is in a different directory, the path to pyRadioHeadRF95 need to be added to PYTHONPATH
 
-###Using directly the Driver with no Manager
+### Using directly the Driver with no Manager
 - Instantiate an object of the ```RF95``` class: ```rf95 = Radio.RF95()```
 - Call the initalizer: ```rf95.init()```
 - Set the frequency: ```rf95.setFrequency(<FREQ>)```
 - Set radio transmission power: ```rf95.setTxPower(<dBm>, <useRFO>)```
 
-####Sending and Receiving
+#### Sending and Receiving
 	
 	rf95.send(msg, len(msg))  
 	rf95.waitPacketSent()  
@@ -40,14 +41,14 @@ Writing programs using pyRadioHeadRF95
         (msg, l) = rf95.recv()    
 
 
-###Using the ReliableDatagram Manager
+### Using the ReliableDatagram Manager
 - Instantiate an object of the ```RF95``` class: ```rf95 = Radio.RF95()``` and initialize it as explained above
 - Call the initalizer: ```rf95.managerInit(<MY_ADDRESS>)```, where the address is an integer
 
 
-####Sending and Receiving
+#### Sending and Receiving
 	
-	 rf95.sendtoWait(msg, len(msg), destination)  
+	rf95.sendtoWait(msg, len(msg), destination)  
 	
 	
 	if rf95.available():  
