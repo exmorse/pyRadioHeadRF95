@@ -18,7 +18,7 @@ Move to the main directory and run:
 
 Wirings (Dragino LoRa shield):
 ----------
-![Wirings schema](./images/schema.png "Wirings schema")
+![Wirings Schema](images/wiring.png "Wirings Schema")
 
 Writing programs using pyRadioHeadRF95
 ---------------------------------------
