@@ -13,11 +13,41 @@ src[0] = 0
 
 class RF95:
 
-	def __init__(self):
+        # Bandwidth values
+        Bandwidth7K8HZ = 7800
+        Bandwidth10K4HZ = 10400
+        Bandwidth15K6HZ = 15600
+        Bandwidth20K8HZ = 20800
+        Bandwidth31K25HZ = 31250
+        Bandwidth41K7HZ = 41700
+        Bandwidth62K5HZ = 62500
+        Bandwidth125KHZ = 125000
+        Bandwidth250KHZ = 250000
+        Bandwidth500KHZ = 500000
+
+        # Spreading factor values
+        SpreadingFactor6 = 6
+        SpreadingFactor7 = 7
+        SpreadingFactor8 = 8
+        SpreadingFactor9 = 9
+        SpreadingFactor10 = 10
+        SpreadingFactor11 = 11
+        SpreadingFactor12 = 12
+
+        # Coding rate denominator values
+        CodingRate4_5 = 5
+        CodingRate4_6 = 6
+        CodingRate4_7 = 7
+        CodingRate4_8 = 8
+
+        def __init__(self):
 
 		ffi.cdef("int init();\
                   void setTxPower(int8_t power, bool useRFO);\
                   bool setFrequency(float centre);\
+                  void setSpreadingFactor(int8_t sf);\
+                  void setSignalBandwidth(long sbw);\
+                  void setCodingRate4(int8_t denominator);\
 		  int send(uint8_t* data, uint8_t len);\
 		  int waitPacketSent();\
 	  	  int waitAvailableTimeout(int ms);\
@@ -56,6 +86,15 @@ class RF95:
         def setFrequency(self, centre):
                 r = radiohead.setFrequency(centre)
                 return r
+
+        def setSpreadingFactor(self, sf):
+                radiohead.setSpreadingFactor(sf)
+
+        def setSignalBandwidth(self, sbw):
+                radiohead.setSignalBandwidth(sbw)
+
+        def setCodingRate4(seld, denominator):
+                radiohead.setCodingRate4(denominator)
 
 	def managerInit(self, address):
 		radiohead.managerInit(address)

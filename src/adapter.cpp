@@ -68,6 +68,18 @@ bool _setFrequency(float centre) {
 	return radio.setFrequency(centre);
 }
 
+void _setSpreadingFactor(int8_t sf) {
+	radio.setSpreadingFactor(sf);
+}
+
+void _setSignalBandwidth(long sbw) {
+	radio.setSignalBandwidth(sbw);
+}
+
+void _setCodingRate4(int8_t denominator) {
+	radio.setCodingRate4(denominator);
+}
+
 int _send(uint8_t* data, uint8_t len) {
 	bool b = radio.send(data, len);
 	if (b) return 0;
@@ -230,6 +242,18 @@ extern "C" {
 
 	extern bool setFrequency(float centre) {
 		return _setFrequency(centre);
+	}
+
+	extern void setSpreadingFactor(int8_t sf) {
+		_setSpreadingFactor(sf);
+	}
+
+	extern void setSignalBandwidth(long sbw) {
+		_setSignalBandwidth(sbw);
+	}
+
+	extern void setCodingRate4(int8_t denominator) {
+		_setCodingRate4(denominator);
 	}
 
 	extern int send(uint8_t* data, uint8_t len) {

@@ -31,6 +31,21 @@ Writing programs using pyRadioHeadRF95
 - Set the frequency: ```rf95.setFrequency(<FREQ>)```
 - Set radio transmission power: ```rf95.setTxPower(<dBm>, <useRFO>)```
 
+#### Configuring Bandwidth
+Done via the method ```rf95.setSignalBandwidth(<BW>)```
+
+Possible values are listed in ```pyRadioHeadRF95.py```
+
+#### Configuring Spreading Factor 
+Done via the method ```rf95.setSpreadingFactor(<SF>)```
+
+Possible values are listed in ```pyRadioHeadRF95.py```
+
+#### Configuring Coding Rate
+Done via the method ```rf95.setCodingRate4(<CR_DEN>)```
+
+Possible values are listed in ```pyRadioHeadRF95.py```
+
 #### Sending and Receiving
 	
 	rf95.send(msg, len(msg))  

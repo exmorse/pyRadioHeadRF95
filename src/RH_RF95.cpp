@@ -450,6 +450,70 @@ void RH_RF95::setTxPower(int8_t power, bool useRFO)
     }
 }
 
+void RH_RF95::setSpreadingFactor(int8_t sf)
+{
+	if (sf < 6) {
+		sf = 6;
+	} else if (sf > 12) {
+		sf = 12;
+	}
+
+	if (sf == 6) {
+		spiWrite(RH_RF95_REG_31_DETECTION_OPTIMIZE, 0xc5);
+		spiWrite(RH_RF95_REG_37_DETECTION_THRESHOLD, 0x0c);
+	} else {
+		spiWrite(RH_RF95_REG_31_DETECTION_OPTIMIZE, 0xc3);
+		spiWrite(RH_RF95_REG_37_DETECTION_THRESHOLD, 0x0a);
+	}
+
+	spiWrite(RH_RF95_REG_1E_MODEM_CONFIG2, (spiRead(RH_RF95_REG_1E_MODEM_CONFIG2) & 0x0f) | ((sf << 4) & 0xf0));
+}
+
+
+void RH_RF95::setSignalBandwidth(long sbw)
+{
+	int bw;
+
+	if (sbw <= 7.8E3) {
+		bw = 0;
+	} else if (sbw <= 10.4E3) {
+		bw = 1;
+	} else if (sbw <= 15.6E3) {
+		bw = 2;
+	} else if (sbw <= 20.8E3) {
+		bw = 3;
+	} else if (sbw <= 31.25E3) {
+		bw = 4;
+	} else if (sbw <= 41.7E3) {
+		bw = 5;
+	} else if (sbw <= 62.5E3) {
+		bw = 6;
+	} else if (sbw <= 125E3) {
+		bw = 7;
+	} else if (sbw <= 250E3) {
+		bw = 8;
+	} else /*if (sbw <= 250E3)*/ {
+		bw = 9;
+	}
+
+	spiWrite(RH_RF95_REG_1D_MODEM_CONFIG1, (spiRead(RH_RF95_REG_1D_MODEM_CONFIG1) & 0x0f) | (bw << 4));
+}
+
+
+void RH_RF95::setCodingRate4(int8_t denominator)
+{
+	if (denominator < 5) {
+		denominator = 5;
+	} else if (denominator > 8) {
+		denominator = 8;
+	}
+
+	int cr = denominator - 4;
+
+	spiWrite(RH_RF95_REG_1D_MODEM_CONFIG1, (spiRead(RH_RF95_REG_1D_MODEM_CONFIG1) & 0xf1) | (cr << 1));
+}
+
+
 // Sets registers from a canned modem configuration structure
 void RH_RF95::setModemRegisters(const ModemConfig* config)
 {
